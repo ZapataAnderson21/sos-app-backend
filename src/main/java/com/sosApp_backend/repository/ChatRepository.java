@@ -11,22 +11,22 @@ import java.util.UUID;
 public interface ChatRepository extends JpaRepository<Chat, UUID> {
 
     // Obtener un chat por el ID de la comunidad
-    @Query("SELECT c FROM Chat c WHERE c.community.community_id = :communityId")
+    @Query(value= "SELECT c FROM Chat c WHERE c.community.community_id = :communityId", nativeQuery = true)
     Chat findByCommunityId(@Param("communityId") UUID communityId);
 
     // Obtener un chat por su ID
-    @Query("SELECT c FROM Chat c WHERE c.chat_id = :chatId")
+    @Query(value= "SELECT c FROM Chat c WHERE c.chat_id = :chatId", nativeQuery = true)
     Chat findByChatId(@Param("chatId") UUID chatId);
 
     // Obtener todos los chats
-    @Query("SELECT c FROM Chat c")
+    @Query(value= "SELECT c FROM Chat c", nativeQuery = true)
     List<Chat> findAllChats();
 
     // Eliminar un chat por su ID
-    @Query("DELETE FROM Chat c WHERE c.chat_id = :chatId")
+    @Query(value= "DELETE FROM Chat c WHERE c.chat_id = :chatId", nativeQuery = true)
     void deleteByChatId(@Param("chatId") UUID chatId);
 
     // (Opcional) Buscar chats con comunidades que contengan una palabra clave en el nombre
-    @Query("SELECT c FROM Chat c WHERE LOWER(c.community.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    @Query(value= "SELECT c FROM Chat c WHERE LOWER(c.community.name) LIKE LOWER(CONCAT('%', :keyword, '%'))", nativeQuery = true)
     List<Chat> findByCommunityNameContaining(@Param("keyword") String keyword);
 }

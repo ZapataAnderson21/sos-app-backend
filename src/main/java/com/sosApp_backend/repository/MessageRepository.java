@@ -11,22 +11,22 @@ import java.util.UUID;
 public interface MessageRepository extends JpaRepository<Message, UUID> {
 
     // Obtener todos los mensajes asociados a un chat específico
-    @Query("SELECT m FROM Message m WHERE m.chat.chat_id = :chatId ORDER BY m.created_at ASC")
+    @Query(value= "SELECT m FROM Message m WHERE m.chat.chat_id = :chatId ORDER BY m.created_at ASC", nativeQuery = true)
     List<Message> findByChatId(@Param("chatId") UUID chatId);
 
     // Obtener un mensaje específico por su ID
-    @Query("SELECT m FROM Message m WHERE m.message_id = :messageId")
+    @Query(value= "SELECT m FROM Message m WHERE m.message_id = :messageId", nativeQuery = true)
     Message findByMessageId(@Param("messageId") UUID messageId);
 
     // Obtener todos los mensajes (ordenados por fecha de creación)
-    @Query("SELECT m FROM Message m ORDER BY m.created_at ASC")
+    @Query(value= "SELECT m FROM Message m ORDER BY m.created_at ASC", nativeQuery = true)
     List<Message> findAllMessages();
 
     // Eliminar un mensaje por su ID
-    @Query("DELETE FROM Message m WHERE m.message_id = :messageId")
+    @Query(value= "DELETE FROM Message m WHERE m.message_id = :messageId", nativeQuery = true)
     void deleteByMessageId(@Param("messageId") UUID messageId);
 
     // Obtener mensajes que contengan una palabra clave en el contenido (opcional)
-    @Query("SELECT m FROM Message m WHERE LOWER(m.content) LIKE LOWER(CONCAT('%', :keyword, '%')) ORDER BY m.created_at ASC")
+    @Query(value= "SELECT m FROM Message m WHERE LOWER(m.content) LIKE LOWER(CONCAT('%', :keyword, '%')) ORDER BY m.created_at ASC", nativeQuery = true)
     List<Message> findByContentContaining(@Param("keyword") String keyword);
 }

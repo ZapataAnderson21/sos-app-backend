@@ -13,16 +13,16 @@ public class User {
     @Column(name = "user_id")
     private UUID user_id;
 
-    @Column(name = "full_name", length = 255, nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String full_name;
 
-    @Column(name = "username", length = 255, nullable = false)
-    private String usernmae;
+    @Column(name = "username", nullable = false)
+    private String username;
 
-    @Column(name = "dni", length = 50, unique = true, nullable = false)
+    @Column(name = "dni", length = 50, nullable = false)
     private String dni;
 
-    @Column(name = "password", length = 255, nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -34,7 +34,7 @@ public class User {
     public User(UUID user_id, String full_name, String usernmae, String dni, String password, Role role) {
         this.user_id = user_id;
         this.full_name = full_name;
-        this.usernmae = usernmae;
+        this.username = usernmae;
         this.dni = dni;
         this.password = password;
         this.role = role;
@@ -57,11 +57,11 @@ public class User {
     }
 
     public String getUsernmae() {
-        return usernmae;
+        return username;
     }
 
     public void setUsernmae(String usernmae) {
-        this.usernmae = usernmae;
+        this.username = usernmae;
     }
 
     public String getDni() {

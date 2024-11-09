@@ -3,10 +3,11 @@ package com.sosApp_backend.controller;
 import com.sosApp_backend.model.Post;
 import com.sosApp_backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/posts")
@@ -17,15 +18,19 @@ public class PostController {
     private PostService postService;
 
     @PostMapping("/create")
-    public Post createPost(@RequestBody Post post) {
+    public ResponseEntity<?> createPost() {
         // Crear un nuevo post
-        return postService.create(post);
+        Map<String, Object>  response= new HashMap<>();
+        response.put("status", true);
+        response.put("mensaje", "Publicacion creada correctamente");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public List<Post> getAllPosts() {
-        // Obtener todos los posts
-        return postService.getAll();
+    public ResponseEntity<?> getAllPosts() {
+        List<Post> posts = new ArrayList<>();
+        Post post = new Post();
+        return new ResponseEntity<>("Obteniendo todos los post", HttpStatus.CREATED);
     }
 
     @GetMapping("/id/{id}")

@@ -2,10 +2,17 @@ package com.sosApp_backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "report_content")
 public class ReportContent {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    private UUID id;
+
     @ManyToOne
     @JoinColumn(name = "report_id", referencedColumnName = "report_id", nullable = false)
     private Report report;
@@ -14,14 +21,23 @@ public class ReportContent {
     private String content;
 
     @Column(name = "content_type", columnDefinition = "TEXT", nullable = false)
-    private String content_type;
+    private String contentType;
 
     public ReportContent() {}
 
-    public ReportContent(Report report, String content, String content_type) {
+    public ReportContent(Report report, String content, String contentType) {
         this.report = report;
         this.content = content;
-        this.content_type = content_type;
+        this.contentType = contentType;
+    }
+
+    // Getters y setters
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public Report getReport() {
@@ -40,11 +56,11 @@ public class ReportContent {
         this.content = content;
     }
 
-    public String getContent_type() {
-        return content_type;
+    public String getContentType() {
+        return contentType;
     }
 
-    public void setContent_type(String content_type) {
-        this.content_type = content_type;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 }

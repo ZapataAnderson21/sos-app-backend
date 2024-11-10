@@ -1,8 +1,10 @@
 package com.sosApp_backend.controller;
 
 import com.sosApp_backend.implement.ReportServiceImplements;
+import com.sosApp_backend.model.Report;
 import com.sosApp_backend.model.ReportContent;
 import com.sosApp_backend.service.ReportContentService;
+import com.sosApp_backend.utils.UTPBinary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -76,19 +77,32 @@ public class ReportContentController {
             @RequestParam("files") MultipartFile[] files,
             @RequestParam("reportId") UUID reportId
     ) {
+        // Validar si el reporte existe
+        Report report = reportServiceImplements.getById(reportId);
+        if (report == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Reporte con ID " + reportId + " no encontrado");
+        }
+
         for (MultipartFile file : files) {
             try {
+                // Validar si el archivo no está vacío
+                if (file.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body("El archivo " + file.getOriginalFilename() + " está vacío");
+                }
+
                 // Generar la ruta para guardar el archivo
                 Path path = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
 
-                // Escribir el archivo en el directorio /tmp
-                Files.write(path, file.getBytes());
+                // Guardar el archivo utilizando UTPBinary
+                UTPBinary.writeFile(file.getBytes(), path.toString());
 
                 // Crear una instancia de ReportContent
                 ReportContent reportContent = new ReportContent();
-                reportContent.setReport(reportServiceImplements.getById(reportId)); // Crear una instancia del reporte con el ID
+                reportContent.setReport(report);
                 reportContent.setContent(file.getOriginalFilename());
-                reportContent.setContent_type(file.getContentType());
+                reportContent.setContentType(file.getContentType());
 
                 // Guardar la información del archivo en la base de datos
                 reportContentService.createReportContent(reportContent);

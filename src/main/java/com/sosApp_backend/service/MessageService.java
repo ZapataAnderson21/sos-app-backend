@@ -9,6 +9,6 @@ public interface MessageService {
     List<Message> getAll();
     Message getById(UUID id);
     Message update(UUID id, Message message);
-    void delete(UUID id);
+    boolean delete(UUID id);
     List<Message> getByChatId(UUID chatId);
 }

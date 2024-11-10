@@ -40,7 +40,7 @@ public class UserServiceImplements implements UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
         existingUser.setFull_name(user.getFull_name());
-        existingUser.setUsernmae(user.getUsernmae());
+        existingUser.setUsername(user.getUsername());
         existingUser.setDni(user.getDni());
         existingUser.setPassword(user.getPassword());
         existingUser.setRole(user.getRole());
@@ -48,12 +48,13 @@ public class UserServiceImplements implements UserService {
     }
 
     @Override
-    public void delete(UUID id) {
-        // Elimina un usuario por su ID
-        if (!userRepository.existsById(id)) {
-            throw new RuntimeException("User not found with ID: " + id);
+    public boolean delete(UUID id) {
+        // Verifica si el usuario existe antes de eliminarlo
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
         }
-        userRepository.deleteById(id);
+        return false;
     }
 
     @Override

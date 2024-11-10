@@ -9,6 +9,6 @@ public interface NotificationService {
     List<Notification> getAll();
     Notification getById(UUID id);
     Notification update(UUID id, Notification notification);
-    void delete(UUID id);
+    boolean delete(UUID id);
     List<Notification> getByUserId(UUID userId);
 }

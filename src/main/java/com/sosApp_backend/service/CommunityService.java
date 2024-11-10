@@ -9,6 +9,6 @@ public interface CommunityService {
     List<Community> getAll();
     Community getById(UUID id);
     Community update(UUID id, Community community);
-    void delete(UUID id);
+    boolean delete(UUID id);
     List<Community> getByUserId(UUID userId);
 }

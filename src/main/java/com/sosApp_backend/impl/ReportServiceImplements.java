@@ -47,12 +47,13 @@ public class ReportServiceImplements implements ReportService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public boolean delete(UUID id) {
         // Elimina un reporte por su ID
-        if (!reportRepository.existsById(id)) {
-            throw new RuntimeException("Report not found with ID: " + id);
+        if (reportRepository.existsById(id)) {
+            reportRepository.deleteById(id);
+            return true;
         }
-        reportRepository.deleteById(id);
+        return false;
     }
 
     @Override

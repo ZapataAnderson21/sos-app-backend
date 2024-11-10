@@ -9,6 +9,6 @@ public interface ReportService {
     List<Report> getAll();
     Report getById(UUID id);
     Report update(UUID id, Report report);
-    void delete(UUID id);
+    boolean delete(UUID id);
     List<Report> getByCommunityId(UUID communityId);
 }

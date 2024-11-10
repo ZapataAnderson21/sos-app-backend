@@ -50,12 +50,13 @@ public class CommunityServiceImplements implements CommunityService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public boolean delete(UUID id) {
         // Elimina una comunidad por su ID
-        if (!communityRepository.existsById(id)) {
-            throw new RuntimeException("Community not found with ID: " + id);
+        if (communityRepository.existsById(id)) {
+            communityRepository.deleteById(id);
+            return true;
         }
-        communityRepository.deleteById(id);
+        return false;
     }
 
     @Override

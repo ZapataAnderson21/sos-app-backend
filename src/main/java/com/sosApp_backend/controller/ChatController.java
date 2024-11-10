@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/chats")
+@RequestMapping("/chat")
 @CrossOrigin("*")
 public class ChatController {
 

@@ -47,12 +47,13 @@ public class MessageServiceImplements implements MessageService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public boolean delete(UUID id) {
         // Elimina un mensaje por su ID
-        if (!messageRepository.existsById(id)) {
-            throw new RuntimeException("Message not found with ID: " + id);
+        if (messageRepository.existsById(id)) {
+            messageRepository.deleteById(id);
+            return true;
         }
-        messageRepository.deleteById(id);
+        return false;
     }
 
     @Override

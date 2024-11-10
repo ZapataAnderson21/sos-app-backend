@@ -31,10 +31,10 @@ public class User {
 
     public User() { }
 
-    public User(UUID user_id, String full_name, String usernmae, String dni, String password, Role role) {
+    public User(UUID user_id, String full_name, String username, String dni, String password, Role role) {
         this.user_id = user_id;
         this.full_name = full_name;
-        this.username = usernmae;
+        this.username = username;
         this.dni = dni;
         this.password = password;
         this.role = role;
@@ -56,12 +56,12 @@ public class User {
         this.full_name = full_name;
     }
 
-    public String getUsernmae() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsernmae(String usernmae) {
-        this.username = usernmae;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getDni() {

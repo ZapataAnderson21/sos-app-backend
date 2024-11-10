@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/alerts")
+@RequestMapping("/alert")
 @CrossOrigin("*")
 public class AlertController {
 

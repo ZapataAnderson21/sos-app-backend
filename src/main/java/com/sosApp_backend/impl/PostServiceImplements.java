@@ -47,12 +47,13 @@ public class PostServiceImplements implements PostService {
     }
 
     @Override
-    public void delete(UUID id) {
-        // Elimina un post por su ID
-        if (!postRepository.existsById(id)) {
-            throw new RuntimeException("Post not found with ID: " + id);
+    public boolean delete(UUID id) {
+        // Verifica si el post existe antes de eliminarlo
+        if (postRepository.existsById(id)) {
+            postRepository.deleteById(id);
+            return true;
         }
-        postRepository.deleteById(id);
+        return false;
     }
 
     @Override

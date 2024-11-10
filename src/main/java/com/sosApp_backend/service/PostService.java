@@ -9,6 +9,6 @@ public interface PostService {
     List<Post> getAll();
     Post getById(UUID id);
     Post update(UUID id, Post post);
-    void delete(UUID id);
+    boolean delete(UUID id);
     List<Post> getByUserId(UUID userId);
 }

@@ -46,12 +46,13 @@ public class NotificationServiceImplements implements NotificationService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public boolean delete(UUID id) {
         // Elimina una notificación por su ID
-        if (!notificationRepository.existsById(id)) {
-            throw new RuntimeException("Notification not found with ID: " + id);
+        if (notificationRepository.existsById(id)) {
+            notificationRepository.deleteById(id);
+            return true;
         }
-        notificationRepository.deleteById(id);
+        return false;
     }
 
     @Override

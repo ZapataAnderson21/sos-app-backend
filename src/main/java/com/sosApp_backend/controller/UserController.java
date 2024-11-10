@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Map<String, Object>> getAllUsers() {
+    public ResponseEntity<?> getAllUsers() {
         Map<String, Object> response = new HashMap<>();
         List<User> users = userService.getAll();
 

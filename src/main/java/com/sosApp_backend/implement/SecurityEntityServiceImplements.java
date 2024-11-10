@@ -1,4 +1,4 @@
-package com.sosApp_backend.impl;
+package com.sosApp_backend.implement;
 
 import com.sosApp_backend.model.SecurityEntity;
 import com.sosApp_backend.repository.SecurityEntityRepository;

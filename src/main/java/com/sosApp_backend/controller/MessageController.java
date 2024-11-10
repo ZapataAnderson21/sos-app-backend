@@ -1,7 +1,9 @@
 package com.sosApp_backend.controller;
 
 import com.sosApp_backend.model.Message;
+import com.sosApp_backend.model.Strike;
 import com.sosApp_backend.service.MessageService;
+import com.sosApp_backend.service.StrikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,20 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    StrikeService strikeService;
+
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createMessage(@RequestBody Message message) {
         Map<String, Object> response = new HashMap<>();
+
+        List<Strike> strikes = strikeService.getStrikesByUser(message.getUser());
+
+        if(strikes.size() > 2){
+            response.put("status", false);
+            response.put("message", "El usuario no puede realizar esta acción.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
 
         if (message.getContent() == null || message.getContent().isEmpty()) {
             response.put("status", false);

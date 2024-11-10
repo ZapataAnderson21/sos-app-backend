@@ -1,4 +1,4 @@
-package com.sosApp_backend.impl;
+package com.sosApp_backend.implement;
 
 import com.sosApp_backend.model.Strike;
 import com.sosApp_backend.model.User;
@@ -35,4 +35,5 @@ public class StrikeServiceImplements implements StrikeService {
     public int getStrikeCountByUser(User user) {
         return strikeRepository.countStrikesByUser(user.getUser_id());
     }
+
 }

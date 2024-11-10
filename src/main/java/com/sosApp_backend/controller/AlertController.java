@@ -1,10 +1,15 @@
 package com.sosApp_backend.controller;
 
 import com.sosApp_backend.model.Alert;
+import com.sosApp_backend.model.Strike;
 import com.sosApp_backend.service.AlertService;
+import com.sosApp_backend.service.StrikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,10 +21,28 @@ public class AlertController {
     @Autowired
     private AlertService alertService;
 
+    @Autowired
+    private StrikeService strikeService;
+
     @PostMapping("/create")
-    public Alert createAlert(@RequestBody Alert alert) {
-        // Crear una nueva alerta
-        return alertService.create(alert);
+    public ResponseEntity<?> createAlert(@RequestBody Alert alert) {
+
+        HashMap<String, Object> response = new HashMap<>();
+
+
+        List<Strike> strikes = strikeService.getStrikesByUser(alert.getUser());
+
+        if(strikes.size() > 2){
+            response.put("status", false);
+            response.put("message", "El usuario no puede realizar esta acción.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        alertService.create(alert);
+        response.put("status", true);
+        response.put("message", "El usuario ha sido registrado con éxito.");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
     @GetMapping("/all")

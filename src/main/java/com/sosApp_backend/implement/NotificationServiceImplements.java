@@ -1,4 +1,4 @@
-package com.sosApp_backend.impl;
+package com.sosApp_backend.implement;
 
 import com.sosApp_backend.model.Notification;
 import com.sosApp_backend.repository.NotificationRepository;

@@ -20,22 +20,22 @@ public class UserCommunityController {
     private UserCommunityService userCommunityService;
 
     @PostMapping("/add")
-    public ResponseEntity<Map<String, Object>> addUserToCommunity(@RequestBody UserCommunityRequest request) {
+    public ResponseEntity<Map<String, Object>> addUserToCommunity(@RequestBody UserCommunityRequest userCommunityReq) {
         Map<String, Object> response = new HashMap<>();
 
-        if (request.getUser() == null || request.getUser().getUser_id() == null) {
+        if (userCommunityReq.getUser() == null || userCommunityReq.getUser().getUser_id() == null) {
             response.put("status", false);
             response.put("message", "El usuario no puede estar vacío");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        if (request.getCommunity() == null || request.getCommunity().getCommunity_id() == null) {
+        if (userCommunityReq.getCommunity() == null || userCommunityReq.getCommunity().getCommunity_id() == null) {
             response.put("status", false);
             response.put("message", "La comunidad no puede estar vacía");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        String resultMessage = userCommunityService.addUserToCommunity(request.getUser(), request.getCommunity());
+        String resultMessage = userCommunityService.addUserToCommunity(userCommunityReq.getUser(), userCommunityReq.getCommunity());
         response.put("status", true);
         response.put("message", resultMessage);
         return new ResponseEntity<>(response, HttpStatus.OK);

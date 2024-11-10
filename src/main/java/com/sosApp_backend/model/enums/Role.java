@@ -1,12 +1,8 @@
-package com.sosApp_backend.model.emun;
+package com.sosApp_backend.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Role {

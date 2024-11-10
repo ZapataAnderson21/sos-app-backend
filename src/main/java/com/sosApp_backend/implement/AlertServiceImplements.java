@@ -1,4 +1,4 @@
-package com.sosApp_backend.impl;
+package com.sosApp_backend.implement;
 
 import com.sosApp_backend.model.Alert;
 import com.sosApp_backend.repository.AlertRepository;

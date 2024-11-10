@@ -1,4 +1,4 @@
-package com.sosApp_backend.impl;
+package com.sosApp_backend.implement;
 
 import com.sosApp_backend.model.Post;
 import com.sosApp_backend.repository.PostRepository;

@@ -2,6 +2,7 @@ package com.sosApp_backend.controller;
 
 import com.sosApp_backend.model.User;
 import com.sosApp_backend.service.UserService;
+import com.sosApp_backend.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,22 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
+    @GetMapping("/search/{username}")
+    public ResponseEntity<?> searchByUsername(@RequestParam String username){
+
+        List<User> usersList = userServiceImpl.searchByUsername(username);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", true);
+        response.put("message", "Usuarios encontrados");
+        response.put("data", usersList);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody User user) {

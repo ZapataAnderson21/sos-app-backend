@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+    List<User> findByUsernameContaining(String username);
+
     // Buscar un usuario por su username
     @Query(value= "SELECT u FROM User u WHERE LOWER(u.username) = LOWER(:username)", nativeQuery = true)
     User findByUsername(@Param("username") String username);
